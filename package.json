@@ -1,5 +1,5 @@
 {
-   "name": "electronic_life",
+  "name": "electronic_life",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -11,5 +11,8 @@
   "devDependencies": {
     "chai": "^4.1.1",
     "mocha": "^3.5.0"
+  },
+  "dependencies": {
+    "diff": "^3.3.1"
   }
 }

@@ -1,5 +1,6 @@
 var expect = require('chai').expect;
 var App = require('../index.js');
+var jsdiff = require('diff');
  
 
 
@@ -81,8 +82,7 @@ describe("World", function(){
 
   describe("Printing", function(){
     var world = new World(plan,legend);
-    console.log(plan.join("\n"));
-    console.log(world.toString());
+    console.log(jsdiff.diffLines(plan.join("\n"),world.toString()));
     /*it("toString produces the same plan used to build", function(){
       expect(world.toString()).to.include.all(plan);
     });*/
