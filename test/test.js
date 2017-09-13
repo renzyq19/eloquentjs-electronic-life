@@ -1,5 +1,5 @@
 var expect = require('chai').expect;
-var App = require('../index.js')();
+var App = require('../index.js');
  
 
 

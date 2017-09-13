@@ -1,5 +1,3 @@
-module.exports = (function (){
-
   function Vector(x,y){
     this.x = x;
     this.y = y;
@@ -106,7 +104,7 @@ module.exports = (function (){
 
   function Wall() {}
 
-  return { 
+module.exports =  { 
     BouncingCritter, 
     Grid, 
     Vector,
@@ -114,4 +112,3 @@ module.exports = (function (){
     World, 
     elementFromChar, 
   };
-});
