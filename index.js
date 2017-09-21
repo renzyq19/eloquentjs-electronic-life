@@ -3,7 +3,7 @@ function Vector(x, y) {
   this.y = y;
 }
 
-Vector.prototype.plus = function(other) {
+Vector.prototype.plus = function (other) {
   return new Vector(this.x + other.x, this.y + other.y);
 };
 
@@ -13,7 +13,7 @@ function Grid(width, height) {
   this.height = height;
 }
 
-Grid.prototype.isInside = function(vector) {
+Grid.prototype.isInside = function (vector) {
   return (
     vector.x >= 0 &&
     vector.x < this.width &&
@@ -22,11 +22,11 @@ Grid.prototype.isInside = function(vector) {
   );
 };
 
-Grid.prototype.get = function(vector) {
+Grid.prototype.get = function (vector) {
   return this.space[vector.x + vector.y * this.width];
 };
 
-Grid.prototype.set = function(vector, value) {
+Grid.prototype.set = function (vector, value) {
   this.space[vector.x + vector.y * this.width] = value;
 };
 
@@ -45,19 +45,19 @@ function randomElement(array) {
   return array[Math.floor(Math.random() * array.length)];
 }
 
-var directionNames = "n ne e se s sw w nw".split(" ");
+var directionNames = 'n ne e se s sw w nw'.split(' ');
 
 function BouncingCritter() {
   this.direction = randomElement(directionNames);
 }
 
-BouncingCritter.prototype.act = function(view) {
-  if (view.look(this.direction) != " ") this.direction = view.find(" ") || "s";
-  return { type: "move", direction: this.direction };
+BouncingCritter.prototype.act = function (view) {
+  if (view.look(this.direction) !== ' ') this.direction = view.find(' ') || 's';
+  return { type: 'move', direction: this.direction };
 };
 
 function elementFromChar(legend, ch) {
-  if (ch === " ") return null;
+  if (ch === ' ') return null;
   var element = new legend[ch]();
   element.originChar = ch;
   return element;
@@ -68,33 +68,32 @@ function World(map, legend) {
   this.grid = grid;
   this.legend = legend;
 
-  map.forEach(function(line, y) {
-    Array.from(line).forEach(function(ch, x) {
+  map.forEach(function (line, y) {
+    Array.from(line).forEach(function (ch, x) {
       grid.set(new Vector(x, y), elementFromChar(legend, ch));
     });
   });
 }
 
-World.prototype.toString = function() {
+World.prototype.toString = function () {
+  var output = '';
   function charFromElement(element) {
-    if (element == null) return " ";
-    else return element.originChar;
+    if (element == null) return ' ';
+    return element.originChar;
   }
-  var output = "";
-  for (var y = 0; y < this.grid.height; y++) {
-    for (var x = 0; x < this.grid.width; x++) {
-      var el = this.grid.get(new Vector(x, y));
+  for (let y = 0; y < this.grid.height; y++) {
+    for (let x = 0; x < this.grid.width; x++) {
+      const el = this.grid.get(new Vector(x, y));
       output += charFromElement(el);
     }
-    output += "\n";
+    output += '\n';
   }
-  debugger;
-  return output;
+  return output.trim();
 };
 
-World.prototype.turn = function() {
+World.prototype.turn = () => {
   var acted = [];
-  this.grid.forEach(function(critter, vector) {
+  this.grid.forEach(function (critter, vector) {
     if (critter.act && !acted.includes(critter)) {
       acted.push(critter);
       this.letAct(critter, vector);
@@ -110,5 +109,5 @@ module.exports = {
   Vector,
   Wall,
   World,
-  elementFromChar
+  elementFromChar,
 };
